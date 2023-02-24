@@ -1,13 +1,14 @@
 function test(){
     //retriving data
-    let nm = document.getElementById("name").value;
-    let eml = document.getElementById("email").value;
+    let kv = document.getElementById("key_value");
+    let nm = document.getElementById("name");
+    let eml = document.getElementById("email");
 
     //storing data
-    let user = localStorage.setItem("nm",nm);
-    let em = localStorage.setItem("email",eml);
+    let user = localStorage.setItem(kv.value,nm.value);
+    let em = localStorage.setItem("email",eml.value);
 
     //retriving stored data and use it for calculation
-    user = localStorage.getItem("nm",nm);
+    user = localStorage.getItem(kv.value,nm);
     em = localStorage.getItem("email",eml);
 } 
