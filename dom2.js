@@ -1,102 +1,93 @@
-var form = document.getElementById('addForm');
-var itemList = document.getElementById('items');
-//var filter = document.getElementById('filter');
 
-form.addEventListener('submit', addItem);
-// Delete event
-itemList.addEventListener('click', removeItem);
-itemList.addEventListener('click', editItem)
-//filter.addEventListener('keyup', filterItems);
+let array = JSON.parse(localStorage.getItem("details")) || []
+
+let body = document.getElementById("body");
+let nam = document.getElementById("item1");
+let email = document.getElementById("item2");
+let phone = document.getElementById("item3");
+//  AppendData(array);
+
+let btn = document.getElementById("btn").addEventListener("click", (event) => {
+  let obj = {}
+  obj.nam = nam.value
+  obj.email = email.value
+  obj.phone = phone.value
+  console.log("obj", obj);
+  console.log(array);
+  array.push(obj)
+  localStorage.setItem("details",JSON.stringify(array));
+  nam.value = "";
+  email.value = "";
+  phone.value = "";
+  AppendData(array);
+
+})
+
+function AppendData(array){
+  console.log("array",array);
+
+  body.innerHTML=""
+ for(let i = 0; i < array.length; i++){
+  
+    let div = document.createElement("div")
+
+    let sr = document.createElement("p");
+    sr.innerText = i + 1;
+    let named = document.createElement("p");
+    named.innerText = array[i].nam
+    let emaild = document.createElement("p");
+    emaild.innerText = array[i].email
+    let phoned = document.createElement("p");
+    phoned.innerText = array[i].phone
+
+    let delBtn = document.createElement("button");
+    delBtn.innerText = "Delete";
+
+    delBtn.addEventListener("click", () =>{
    
+      myDelete(i, array);
 
-function addItem(e){
-    e.preventDefault();
-    // Get input value
-    var newItem1 = document.getElementById('item1').value;
-    var newItem2 = document.getElementById('item2').value;
-    var newItem3 = document.getElementById('item3').value;
-    var all = "Name:"+newItem1+",Emailid:"+newItem2+",Phonenumber:"+newItem3
-    //add to local storage 
-    let user = localStorage.setItem(newItem2, all);
-     
-    // Create new li element
-    var li = document.createElement('li');
-    // Add class
-    li.className = 'list-group-item';
-    // Add text node with input value
-    li.appendChild(document.createTextNode(all));
-    // li.appendChild(document.createTextNode(newItem2));
-    // li.appendChild(document.createTextNode(newItem3));
-    // Create del button element
-    var deleteBtn = document.createElement('button');
-    let editBtn = document.createElement('button')
-    
-    // Add classes to del button
-    deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
-    editBtn.className = 'btn btn-danger btn-sm float-right edit';
-    // Append text node
-    deleteBtn.appendChild(document.createTextNode('Delete'));
-    editBtn.appendChild(document.createTextNode('Edit'))
-    // Append button to li
-    li.appendChild(deleteBtn);
-    li.appendChild(editBtn)
-    // Append li to list
-    itemList.appendChild(li);
-    
-  }
+    })
 
-// function submit(){
-//   var newItem1 = document.getElementById('item1');
-//   var newItem2 = document.getElementById('item2');
-//   var newItem3 = document.getElementById('item3');
+  let editBtn = document.createElement("button");
+  editBtn.innerText = "Edit";
 
-//   newItem1.style.display = "none";
-//   newItem2.style.display = "none";
-//   newItem3.style.display = "none";
-// }
+  editBtn.addEventListener("click", () =>{
+   
+    myEdit(i, array[i], array)
 
-function removeItem(e){
-    var  newItem2 = document.getElementById('item2').value;
-    if(e.target.classList.contains('delete')){
-      if(confirm('Are You Sure?')){
-        var li = e.target.parentElement;
-        itemList.removeChild(li);
-        localStorage.removeItem(newItem2)
-      }
-    }
-  }
-
-function editItem(e){
-  var newItem1 = document.getElementById('item1');
-  var newItem2 = document.getElementById('item2');
-  var newItem3 = document.getElementById('item3');
-    
-    if(e.target.classList.contains('edit')){
-      if(confirm('Are You Sure?')){
-        var li = e.target.parentElement;
-        itemList.removeChild(li);
-        localStorage.removeItem(newItem2)
-
-        newItem1.style.display = "block";
-        newItem2.style.display = "block";
-        newItem3.style.display = "block";
-        editItem.style.display = "none";
-      }
-    }
+  })
+   
+  div.append(sr, named, emaild, phoned, delBtn, editBtn);
+  body.append(div);
 }
-//   function filterItems(e){
-//     // convert text to lowercase
-//     var text = e.target.value.toLowerCase();
-//     // Get lis
-//     var items = itemList.getElementsByTagName('li');
-//     // Convert to an array
-//     Array.from(items).forEach(function(item){
-//       var itemName = item.firstChild.textContent;
-//       var description = item.childNodes[1].textContent;
-//       if(itemName.toLowerCase().indexOf(text) != -1 || description.toLowerCase().indexOf(text) != -1){
-//         item.style.display = 'block';
-//       } else {
-//         item.style.display = 'none';
-//       }
-//     });
-//   }
+}
+
+function myDelete(i, array){
+  console.log("delete",i,array);
+  array.splice(i,1);
+
+  localStorage.setItem("details", JSON.stringify(array))
+  AppendData(array);
+
+}
+
+
+function myEdit(i, element,array){
+
+  console.log("delete",i,array);
+  nam.value = "";
+  email.value = "";
+  phone.value = "";
+  nam.value = element.nam
+  email.value = element.email
+  phone.value = element.phone
+
+
+  console.log("delete",i,array);
+  array.splice(i,1);
+
+  localStorage.setItem("details", JSON.stringify(array))
+  AppendData(array);
+
+}
