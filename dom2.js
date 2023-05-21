@@ -16,7 +16,7 @@ let btn = document.getElementById("btn").addEventListener("click", (event) => {
   console.log(array);
   array.push(obj)
   //localStorage.setItem("details",JSON.stringify(array));
-  axios.post("https://crudcrud.com/api/8de3e101d96144009cc2612223d45b64/apppointmentdata",obj)
+  axios.post("https://crudcrud.com/api/3c7392e003114b8e9551ed99762a1ebf/apppointmentdata",obj)
   .then((respone)=>{
     console.log(respone);
   })
@@ -101,3 +101,22 @@ function myEdit(i, element,array){
 
 }
 
+window.addEventListener("DOMContentLoaded", ()=>{
+  axios.get("https://crudcrud.com/api/3c7392e003114b8e9551ed99762a1ebf/apppointmentdata")
+  .then((respone)=>{
+    console.log(respone);
+  })
+  .catch((error)=>{
+    console.log(error);
+  })
+
+  const localStorageObj = localStorage;
+  const localStoragekeys = Object.keys(localStorageObj)
+  
+  for(var i=0; i< localStoragekeys.length; i++){
+    const key = localStoragekeys[i]
+    const userDetailsString = localStorageObj[key];
+    constuserDetailsObj = JSON.parse(userDetailsString);
+  }
+  AppendData(array);
+})
