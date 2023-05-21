@@ -15,7 +15,16 @@ let btn = document.getElementById("btn").addEventListener("click", (event) => {
   console.log("obj", obj);
   console.log(array);
   array.push(obj)
-  localStorage.setItem("details",JSON.stringify(array));
+  //localStorage.setItem("details",JSON.stringify(array));
+  axios.post("https://crudcrud.com/api/8de3e101d96144009cc2612223d45b64/apppointmentdata",obj)
+  .then((respone)=>{
+    console.log(respone);
+  })
+  .catch((err)=>{
+    console.log(err);
+  })
+
+
   nam.value = "";
   email.value = "";
   phone.value = "";
@@ -91,3 +100,4 @@ function myEdit(i, element,array){
   AppendData(array);
 
 }
+
