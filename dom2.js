@@ -53,7 +53,13 @@ function AppendData(array){
     delBtn.innerText = "Delete";
 
     delBtn.addEventListener("click", () =>{
-   
+      axios.delete("https://crudcrud.com/api/3c7392e003114b8e9551ed99762a1ebf/apppointmentdata")
+      .then((respone)=>{
+        console.log(respone);
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
       myDelete(i, array);
 
     })
@@ -78,6 +84,8 @@ function myDelete(i, array){
 
   localStorage.setItem("details", JSON.stringify(array))
   AppendData(array);
+
+  
 
 }
 
