@@ -78,7 +78,7 @@ function AppendData(array){
       .catch((error)=>{
         console.log(error);
       })
-      axios.get("https://crudcrud.com/api/3c7392e003114b8e9551ed99762a1ebf/apppointmentdata")
+      axios.get ("https://crudcrud.com/api/3c7392e003114b8e9551ed99762a1ebf/apppointmentdata")
       .then((respone)=>{
         console.log(respone);
       })
